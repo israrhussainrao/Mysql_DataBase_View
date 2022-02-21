@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}{% trans "List Student" %}{% endblock title %}
+
+{% block content %}
+
+     {% block top_head %}
+          <link rel="stylesheet" href="{% static 'assets/css/footable/footable.bootstrap.min.css' %}">
+          <link rel="stylesheet" href="{% static 'assets/css/footable/footable-page.css' %}">
+          <link rel="stylesheet" href="{% static 'assets/css/dataTables.bootstrap4.css' %}">
+     {% endblock %}
+
+     <div class="page-wrapper"><!-- Page wrapper  -->
+          <div class="container-fluid"><!-- Container fluid  -->
+               <div class="row">
+                    <div class="col-lg-12">
+                         <div class="card">
+                              <div class="card-header">{% trans "List Student" %}</div>
+                              <div class="card-body">
+                                   <div class="row table-responsive">
+                                        <form method="post" id="form-important">
+                                             {% csrf_token %}
+                                             <table class="table borderless">
+                                                  <tr>
+                                                       <td class="ct-label-min-title" rowspan=5>
+                                                            <div class="card-header-chill" style="
+                                                                 border-radius: calc(0px - 0px) calc(0px - 0px) 0 0;
+                                                                 padding: 0.75rem 1.25rem;
+                                                                 margin-bottom: 0;
+                                                                 background-color: #EDF7F6;
+                                                                 border-bottom: solid 1px #e5e5e5;">
+                                                                 <i class="btn far fa-file-excel" style="padding: 5px;"></i>
+                                                                 <input type="submit" class="far fa-file-excel" onclick="checkuuid()" value="Excel">
+                                                            </div>
+                                                       </td>
+                                                       <td class="ct-label-min-title" colspan=3><input type="checkbox" name="checks[]" value="name_c" id="name_always"> {% trans 'Name' %}</label></td>
+                                                       <td class="ct-label-min-title" colspan=3><input type="checkbox" name="checks[]" value="surname_c" id="surname_always"> {% trans 'Surname' %}</label></td>
+                                                       <td class="ct-label-min-title" colspan=3><input type="checkbox" name="checks[]" value="std_no_c" id="std_no_always"> {% trans 'Student Number' %}</label></td>
+                                                  </tr>
+                                                  <tr>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="username_c" id="username_always"> {% trans 'User Name' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="idcard_c" id="IDcard_always"> {% trans 'ID Card Number' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="status_c" id="status_always"> {% trans 'Status' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="mother_c"> {% trans 'Mother' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="father_c"> {% trans 'Father' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="guardian_c"> {% trans 'Guardian' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="bloodtype_c"> {% trans 'Blood Type' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="gender_c"> {% trans 'Gender' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="birthplace_c"> {% trans 'Birth Place' %}</label></td>
+                                                  </tr>
+                                                  <tr>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="birthdate_c"> {% trans 'Birth Date' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="nationality_c"> {% trans 'Nationality' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="region_c"> {% trans 'Region' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="phone_home_c"> {% trans 'Phone Home' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="phone_mobile_c"> {% trans 'Phone Mobile' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="address_c"> {% trans 'Address' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="parent_martial_status_c"> {% trans 'Parents Are Married' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="mother_alive_c"> {% trans 'Mother Alive' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="father_alive_c"> {% trans 'Father Alive' %}</label></td>
+                                                  </tr>
+                                                  <tr>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="divorced_mother_marital_status_c"> {% trans 'Mother Married' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="divorced_father_marital_status_c"> {% trans 'Father Married' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="with_whom_c"> {% trans 'With Whom' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="special_notes_c"> {% trans 'General info' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="health_notes_c"> {% trans 'Healt info' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="firstregistration_date_c"> {% trans 'First Registration Date' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="preregistration_date_c"> {% trans 'Reregistration Date' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="preregistration_fee_c"> {% trans 'Pre Registration Fee' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="acceptance_type_c"> {% trans 'Acceptance Type' %}</label></td>
+                                                  </tr>
+                                                  <tr>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="registration_classyear_c"> {% trans 'Registration Class Year' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="std_cls_c"> {% trans 'Class' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="previous_school_c"> {% trans 'Previous School' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="scholarship_c"> {% trans 'Scholarship' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="uniform_c"> {% trans 'Free School Uniform' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="food_c"> {% trans 'Food' %}</label></td>
+                                                       <td class="ct-label-min-title"><input type="checkbox" name="checks[]" value="transfer_c"> {% trans 'Transfer' %}</label></td>
+                                                  </tr>
+                                             </table>
+                                        </form>
+
+                                        <hr>
+
+                                        <div class="col-md-12">
+                                             <table id="demo-foo-row-toggler" class="table table-bordered" data-toggle-column="first" data-order='[[ 1, "asc" ]]' data-empty="{% trans 'No record found' %}">
+                                                  <thead>
+                                                       <tr>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'User Name' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Status' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Name' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Surname' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'ID Card Number' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Student Number' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Registration Class Year' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Class' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Previous School' %}</th>
+                                                            <th class='ct-label-mid-title text-center p-2'>{% trans 'Edit' %}</th>
+                                                            <th data-breakpoints="all" class='ct-label-title text-center' data-title="{% trans 'Details' %}"></th>
+                                                       </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                       {% for Student in Student_List%}
+                                                            <tr data-expandable="true">
+                                                                 <input type="hidden" name="student" class="student_id" value="{{Student.uuid}}">
+                                                                <td class='ct-label-min-title text-left'>{{ Student.user| default:''}}</td>
+                                                                <td class='ct-label-min-title text-center'>
+                                                                    {% for status in STATUS_LIST %}
+                                                                         {% if Student.status == status.0 %}
+                                                                              {{status.1}}
+                                                                         {% endif %}
+                                                                    {% endfor %}   
+                                                               </td>
+                                                                <td class='ct-label-min-title text-center'>{{ Student.name }}</td>
+                                                                 <td class='ct-label-min-title text-center'>{{ Student.surname }}</td>
+                                                                 <td class='ct-label-min-title text-center'>{{ Student.id_no}}</td>
+                                                                 <td class='ct-label-min-title text-center'>{{ Student.std_no| default:''}}</td>
+                                                                 <td class='ct-label-min-title text-center'>{{ Student.registration_classyear }}</td>
+                                                                 <td class='ct-label-min-title text-center' width='10%'>
+                                                                      
+                                                                           {{Student.class_year}}{{Student.class_name}}{%if Student.class_year > 8%}  {{Student.class_branch}} {%endif%}
+                                                                          
+                                                                 </td>
+                                                                 <td class='ct-label-min-title text-center'>
+                                                                      {%if Student.previous_school == 104%}
+                                                                           {{ Student.other_previous_school }}
+                                                                      {%else%}
+                                                                           {%for KKTC_SCHOOL in KKTC_SCHOOL_LIST%}
+                                                                                {%if Student.previous_school == KKTC_SCHOOL.0%}
+                                                                                     {{ KKTC_SCHOOL.1 }}
+                                                                                {%endif%}
+                                                                           {%endfor%}
+                                                                      {%endif%}
+                                                                 </td>
+                                                                 <td class='style="display: table-cell;" text-center '><a  class='button btn btn-info btn-circle btn-sm' href=/Edit-Student/?uuid={{Student.student.uuid}}&action=Edit"><i class="fas fa-edit"></i></a></td>
+                                                                 <td class='ct-label-min-title text-center'>
+                                                                      <table class="footable-details table table-bordered table-responsive">
+                                                                           <tbody>
+                                                                                <tr>
+                                                                                     <td class='ct-label text-center text-brown' rowspan=2>
+                                                                                          {% if Student.photo%}
+                                                                                               <img width='100' height='120' src="/media/{{ Student.student.photo }}">
+                                                                                          {% else %}
+                                                                                               {% if Student.gender == 1 %}
+                                                                                                    <img  src="{% static 'assets/images/user_male.png' %}" alt="" height="50" width="50">
+                                                                                               {% else %}
+                                                                                                    <img src="{% static 'assets/images/user_female.png' %}" alt="" height="50" width="50">
+                                                                                               {% endif %}
+                                                                                          {% endif %}
+                                                                                     </td>
+                                                                                     <td class="ct-label-mid-title text-center text-brown">{% trans 'Scholarship' %}</td>
+                                                                                     <td class='ct-label-mid-title text-center text-brown'>{% trans 'Registration Date' %}</td>
+                                                                                     <td class='ct-label-mid-title text-center text-brown'>{% trans 'Foreign Language' %}</td>
+                                                                                     <td class='ct-label-mid-title text-center text-brown'>{% trans 'Preregistration Fee' %}</td>
+                                                                                     <td class='ct-label-min-title text-center text-brown'>{% trans 'Birth Date' %}</td>
+                                                                                     <td class='ct-label-min-title text-center text-brown'>{% trans 'Nationality' %}</td>
+                                                                                     <td class='ct-label-min-title text-center text-brown' width='15%'>{% trans 'Special Notes' %}</td>
+                                                                                     <td class='ct-label-min-title text-center text-brown' width='15%'>{% trans 'Healt Notes' %}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                     <td class='ct-label-min-title text-center'>
+                                                                                          {% for scholarship in SCHOLARSHIP_LIST %}
+                                                                                               {% if Student.scholarship == scholarship.0 %}
+                                                                                                    {{scholarship.1}}
+                                                                                               {% endif %}
+                                                                                          {% endfor %}   
+                                                                                     </td>
+                                                                                     <td class='ct-label-min-title text-center'>{{ Student.preregistration_date }}</td>
+                                                                                     <td class='ct-label-min-title text-center'>
+                                                                                         {% if request.LANGUAGE_CODE == "tr" %}
+                                                                                             {{ Student.local_language }}
+                                                                                         {% else %}
+                                                                                             {{ Student.foreign_language }}
+                                                                                         {% endif %}           
+                                                                                     </td>
+                                                                                     <td class='ct-label-min-title text-center'>{{ Student.preregistration_fee |default:0|floatformat:2|intcomma}} TL</td>
+                                                                                     <td class='ct-label-min-title text-center'>{{ Student.birthdate }}</td>
+                                                                                     <td class='ct-label-min-title text-center'>{% if request.LANGUAGE_CODE == "tr" %}{{Student.nationality_local_name}} {%else%}{{Student.nationality_foreign_name}} {%endif%}</td>
+                                                                                     <td class='ct-label-min-title text-left' width='15%'>{{ Student.special_notes | default:'' }}</td>
+                                                                                     <td class='ct-label-min-title text-left' width='15%'>{{ Student.health_notes | default:''  }}</td>
+                                                                                </tr>
+                                                                           </tbody>
+                                                                      </table>
+                                                                 </td>
+                                                            </tr>
+                                                       {% endfor %}
+                                                  </tbody>
+                                             </table>
+                                        </div>
+                                   </div>
+
+                              </div>
+                         </div>
+                    </div>
+               </div>
+
+          </div><!-- End Container fluid  -->
+     </div><!-- End Page wrapper  -->
+{% endblock content %}
+
+{% block top_scr %}
+     <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+{% endblock top_scr%}
+
+{% block bottom_scr %}
+    <script src="{% static 'assets/js/footable/footable.min.js' %}"></script>
+    <script src="{% static 'assets/js/footable/footable-init.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/jszip.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/pdfmake.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/vfs_fonts.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables/buttons.print.min.js' %}"></script>
+    <script>
+          setInterval(function(){ 
+          $(document).ready(function() {
+               $("#name_always").prop('checked', true);
+                $("#surname_always").prop('checked', true);
+                $("#std_no_always").prop('checked', true);
+           });
+           }, 1);
+
+           var table = $('#demo-foo-row-toggler').DataTable({
+               paging: false,
+               ordering: false,
+               "sDom": '<"top"i>rt',
+               "bSort" : false,
+               columnDefs:[
+               // { "searchable": false, "targets": '_all', },
+               // { "searchable": false, "targets": [6,8] },
+               ],
+               language: {
+             {% if request.LANGUAGE_CODE == "tr" %}
+                   search: "Ara",
+                   paginate: {
+                   first:      "İlk",
+                   previous:   "Önceki",
+                   next:       "Sonraki",
+                   last:       "Son"
+               },
+                   "info": "_TOTAL_ kayıt içerisinden _START_ - _END_ arası gösteriliyor",
+                   "infoFiltered": "",
+                   "emptyTable": "Gösterilecek Kayıt Bulunamadı",
+                   "infoEmpty": "Gösterilecek Kayıt Bulunamadı",
+                   "zeroRecords":"Gösterilecek Kayıt Bulunamadı",
+                    // _START_ - Display index of the first record on the current page
+                    // _END_ - Display index of the last record on the current page
+                    // _TOTAL_ - Number of records in the table after filtering
+                    // _MAX_ - Number of records in the table without filtering
+                    // _PAGE_ - Current page number
+                    // _PAGES_ - Total number of pages of data in the table
+             {% else %}
+                   "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                   "infoFiltered": "",
+                   "emptyTable": "No data available in table",
+                   "infoEmpty": "No Records Found",
+                   "zeroRecords":"No matching records found",
+             {% endif %}
+        },
+ 
+               });
+           
+               $('#demo-foo-row-toggler thead').append($('#demo-foo-row-toggler thead tr th').slice( 0, 10 ).clone()).html()
+          //  $('#demo-foo-row-toggler').on('search.dt', function() {
+          //      var searchText = $('.dataTables_filter input').val();
+          //      $("#search_box").val(searchText)
+          //  });
+
+          count = 0; 
+          $('#demo-foo-row-toggler thead tr:eq(0) th').each( function () {
+               if(count==9){$(this).html( '<span disabled></span>' );}
+               else{$(this).html( '<input type="text" placeholder="{% trans "Search" %}" class="column_search form-control ct-label-min-title" />' );}
+               count++;
+          } );
+         
+          function checkuuid(){
+               $('.student_uuid').each(function(){
+                    $(this).remove()
+               });
+               $('.student_id').each(function(){
+                    id=$(this).val()
+                    $('#form-important').append( '<input type="hidden" name="student_uuid" class="student_uuid" value="'+id+'" />' );
+               });
+               
+               var rowCount = $('#demo-foo-row-toggler tbody').find('tr').length
+               if(rowCount<2){
+                    event.preventDefault();
+                    alert('{% trans "The Table is Empty" %}')
+               }
+          }
+          $( '#demo-foo-row-toggler thead'  ).on( 'keyup', ".column_search",function () {
+               table
+               .column( $(this).parent().index() )
+               .search( this.value )
+               .draw();
+          } );
+    </script>
+{% endblock bottom_scr %}

@@ -1,0 +1,299 @@
+SELECT
+	`college_student`.`uuid` AS `uuid`,
+	`auth_user`.`username` AS `user`,
+	`college_semester`.`year` AS `year`,
+	`college_preregistration`.`status` AS `status`,
+	`college_student`.`std_no` AS `std_no`,
+	`college_student`.`name` AS `name`,
+	`college_student`.`surname` AS `surname`,
+	`college_student`.`id_no` AS `id_no`,
+	`college_student`.`photo` AS `photo`,
+	`college_classes`.`class_year` AS `class_year`,
+	`college_classes`.`class_name` AS `class_name`,
+	`college_classes`.`class_branch` AS `class_branch`,(
+	SELECT
+		concat( `college_family`.`name`, ' ', `college_family`.`surname` ) 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_name`,(
+	SELECT
+		`college_family`.`birthdate` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_birthdate`,(
+	SELECT
+		`college_family`.`birthplace` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_birthplace`,(
+	SELECT
+		`college_family`.`phone_mobile` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_phone_mobile`,(
+	SELECT
+		`college_family`.`education` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_education`,(
+	SELECT
+		`college_family`.`job` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_job`,(
+	SELECT
+		`college_family`.`work` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_work`,(
+	SELECT
+		`college_family`.`email` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'F' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `mother_email`,(
+	SELECT
+		concat( `college_family`.`name`, ' ', `college_family`.`surname` ) 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_name`,(
+	SELECT
+		`college_family`.`phone_mobile` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_phone_mobile`,(
+	SELECT
+		`college_family`.`education` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_education`,(
+	SELECT
+		`college_family`.`birthdate` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_birthdate`,(
+	SELECT
+		`college_family`.`birthplace` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_birthplace`,(
+	SELECT
+		`college_family`.`job` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_job`,(
+	SELECT
+		`college_family`.`work` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_work`,(
+	SELECT
+		`college_family`.`email` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'M' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `father_email`,(
+	SELECT
+		concat( `college_family`.`name`, ' ', `college_family`.`surname` ) 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_name`,(
+	SELECT
+		`college_family`.`phone_mobile` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_phone_mobile`,(
+	SELECT
+		`college_family`.`education` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_education`,(
+	SELECT
+		`college_family`.`birthdate` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_birthdate`,(
+	SELECT
+		`college_family`.`birthplace` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_birthplace`,(
+	SELECT
+		`college_family`.`job` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_job`,(
+	SELECT
+		`college_family`.`work` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_work`,(
+	SELECT
+		`college_family`.`email` 
+	FROM
+		`college_family` 
+	WHERE
+		((
+				`college_family`.`relationship` = 'O' 
+				) 
+		AND ( `college_family`.`student_id` = `college_student`.`uuid` ))) AS `other_email`,
+	`college_preregistration`.`preregistration_date` AS `preregistration_date`,
+	`college_preregistration`.`preregistration_fee` AS `preregistration_fee`,
+	`college_preregistration`.`registration_classyear` AS `registration_classyear`,
+	`college_preregistration`.`previous_school` AS `previous_school`,
+	`college_preregistration`.`scholarship` AS `scholarship`,
+	`college_preregistration`.`uniform` AS `uniform`,
+	`college_preregistration`.`food` AS `food`,
+	`college_preregistration`.`transfer` AS `transfer`,
+	`college_language`.`local_name` AS `local_language`,
+	`college_language`.`foreign_name` AS `foreign_language`,
+	`college_acceptancetype`.`local_name` AS `acceptance_local_name`,
+	`college_acceptancetype`.`foreign_name` AS `acceptance_foreign_name`,
+	`college_student`.`gender` AS `gender`,
+	`college_student`.`birthdate` AS `birthdate`,
+	`college_student`.`birthplace` AS `birthplace`,
+	`college_student`.`blood_type` AS `blood_type`,
+	`college_student`.`address` AS `address`,
+	`college_student`.`phone_home` AS `phone_home`,
+	`college_student`.`phone_mobile` AS `phone_mobile`,
+	`college_student`.`guardian` AS `guardian`,
+	`college_student`.`parent_martial_status` AS `parent_martial_status`,
+	`college_student`.`divorced_mother_marital_status` AS `divorced_mother_marital_status`,
+	`college_student`.`divorced_father_marital_status` AS `divorced_father_marital_status`,
+	`college_student`.`mother_alive` AS `mother_alive`,
+	`college_student`.`father_alive` AS `father_alive`,
+	`college_student`.`with_whom` AS `with_whom`,
+	`college_student`.`special_notes` AS `special_notes`,
+	`college_student`.`health_notes` AS `health_notes`,
+	`college_student`.`registration_date` AS `registration_date`,
+	`college_region`.`name` AS `region_name`,
+	`college_nationality`.`local_name` AS `nationality_local_name`,
+	`college_nationality`.`foreign_name` AS `nationality_foreign_name`,
+	`college_preregistration`.`other_previous_school` AS `other_previous_school` 
+FROM
+	(((((((((
+										`college_semester`
+										JOIN `college_preregistration` ON ((
+												`college_semester`.`uuid` = `college_preregistration`.`semester_id` 
+											)))
+									JOIN `college_student` ON ((
+											`college_student`.`uuid` = `college_preregistration`.`student_id` 
+										)))
+								LEFT JOIN `college_assignstudentcourseclasses` ON (((
+											`college_semester`.`uuid` = `college_assignstudentcourseclasses`.`semester_id` 
+											) 
+									AND ( `college_student`.`uuid` = `college_assignstudentcourseclasses`.`student_id` ))))
+							LEFT JOIN `college_classes` ON (((
+										`college_semester`.`uuid` = `college_classes`.`semester_id` 
+										) 
+								AND ( `college_assignstudentcourseclasses`.`student_class_id` = `college_classes`.`uuid` ))))
+						JOIN `college_acceptancetype` ON ((
+								`college_preregistration`.`acceptance_type_id` = `college_acceptancetype`.`uuid` 
+							)))
+					JOIN `college_region` ON ((
+							`college_student`.`region_id` = `college_region`.`uuid` 
+						)))
+				JOIN `college_nationality` ON ((
+						`college_student`.`nationality_id` = `college_nationality`.`uuid` 
+					)))
+			JOIN `auth_user` ON ((
+					`college_student`.`user_id` = `auth_user`.`id` 
+				)))
+		JOIN `college_language` ON ((
+				`college_preregistration`.`foreign_language_id` = `college_language`.`uuid` 
+			))) 
+WHERE
+	(
+	`college_semester`.`year` = concat( YEAR (( curdate() - INTERVAL 1 YEAR )), '-', YEAR ( curdate()), '' )) 
+ORDER BY
+	`college_student`.`std_no`
